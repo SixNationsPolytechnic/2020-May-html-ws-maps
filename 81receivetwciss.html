@@ -91,7 +91,7 @@ function initMap() {
   var marker = new google.maps.Marker({position: Location, map: map,  
   title: 'My Location '});
   marker.addListener('click', function() {
-    infowindow.open(map, marker);
+  infowindow.open(map, marker);
   });
 }
 var u = document.getElementById("usermarker");
@@ -103,7 +103,7 @@ function createmarker2(payload)
  icon=null;
 
   if( payload.name === undefined)
-  {}
+  {
       payload.name="weatherstation";
         //TODO:::
 }
@@ -175,8 +175,8 @@ function myTimer() {
   mymsg.payload = { };
 //TODO ... create JSON object ... 
   mymsg.payload.event="coordinates"
-  mymsg.payload.name="Markus2"
-  mymsg.payload.id="02"
+  mymsg.payload.name="Markus3"
+  mymsg.payload.id="03"
   mymsg.payload.lon=mypos.coords.longitude
   mymsg.payload.lat=mypos.coords.latitude
   mymsg.payload.ts=Date.now() //Timestamp
