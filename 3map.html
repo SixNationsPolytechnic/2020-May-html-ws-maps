@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--
+  3map.html 
+
+  In this example we use the geolocation service to the our GPS location form the browser or the phone automatically .
+
+NOTE: Yoou will be prompted to allow the browser to get your location maybe sure to allow this.
+
+  TODO: 
+  
+  1. Adjust the Page with your name 
+  2. Adjust the QR URL 
+  3. Test the Page with your Phone / Chrome Browser
+  4. Dispay the location in the html field see todo:
+
+
+
+  -->
+<html>
+
+<head>
+	<style>
+		/* Set the size of the div element that contains the map */
+		#map {
+			height: 600px;
+			/* The height is 400 pixels */
+			width: 100%;
+			/* The width is the width of the web page */
+		}
+	</style>
+</head>
+
+<body>
+	<h3>??MARKUS?? - Automatic position 3Map.html </h3>
+	<br>Location:
+    <p id="message"></p>
+    <p id="location"></p>
+    <!--The div element for the map -->
+    <div id="map"></div>
+
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://OptimalStarkField--mvankempen.repl.co/3map.html" title="QRCode" height=150 width=150><<<<< ADJUST the URL
+<br> QR Code to get the website onto your phone<br><br>
+
+
+
+    <script>
+
+// Initialize and add the map
+var m = document.getElementById("message");
+function getLocation() {
+    if (navigator.geolocation) {
+        m.innerHTML = "Please WAIT ?????";
+        navigator.geolocation.getCurrentPosition(getLocation_success, getLocation_error);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+        m.innerHTML = "Geolocation  is not supported";
+    }
+}
+
+function getLocation_success(pos){
+    showPosition(pos)    
+}
+
+function getLocation_error(err){
+    console.warn('ERROR(' + err.code + '): ' + err.message);
+}
+
+var mypos;
+var x = document.getElementById("location");
+
+function showPosition(position) {
+  //TODO::: Print he location in the HTML fields
+ //   x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+       m.innerHTML = "Ok we got your location ????MARKUS???";
+    console.log(position); //TODO print Location 
+    mypos=position;
+    initMap()
+}
+
+var map
+function initMap() {
+
+  var Location = {lat:mypos.coords.latitude, lng: mypos.coords.longitude};
+  // The map, centered at Location
+  map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 4, center: Location});
+
+  // The marker, positioned at Location
+
+   var infowindow = new google.maps.InfoWindow({
+    content: "??MARKUS???"
+  });
+
+  var marker = new google.maps.Marker({position: Location, map: map,  
+  title: 'My Location '});
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
+}
+      
+
+
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2aF0czDYjAT3hAwKKZSpTm_e57VbDzs&callback=getLocation">
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,34 @@
+<!-- Html form submit infos to Central server 
+server will send message to student 
+
+
+Infos on JSON ... Structure
+
+Form submit html 
+
+1. QR code and IFrame
+
+2. HTML/JS for Device Orientation 
+
+3. Compass - Customize it
+
+4.  Google Maps - Marker of our Position 
+
+5. HTML form to create Markers (Name and Lat?lon)
+->>> Give them loations ... 
+
+6. GPS and 
+
+7.  Create JSON object and send via WebSocket to Central HUB 
+->>> Add COMMANDS
+->>> Central HUB Maps it - url 
+->>>> Need Image with flow 
+->>>> Send orientation information to animated the Icons 
+
+7. Create map to Display all Students information 
+
+
+
+
+
+  -->

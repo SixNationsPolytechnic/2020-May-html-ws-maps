@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<!--
+
+  This is an HTML form which is use to enter Name , LAt,Lon coordinate. 
+
+  Please fix some of the styles ??? and image issues
+
+  You need to add a name input field to the form bedore you can submit the form.
+
+  -->
+<html>
+
+<body>
+	<style>
+		body {
+			background-image: url(https????://api.athleticsnyc.site/wp-content/uploads/2019/05/ISOAthletics_IBM_Think_Image_7.jpg);
+
+		}
+
+		label?? {
+			display: inline-block;
+			// width: 140px;
+			text-align: right;
+		}
+
+		.button?? {
+			// background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			// display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+		}
+	</style>
+	<font size="+2">
+		<h3>??MARKUS??? - Submit a Location </h3>
+
+		<form action="/5map.html" method="get" onsubmit="return mySubmit()">
+			<label for="fname">Name:</label>
+
+  
+
+  <label for="lat">lat:</label>
+  <input style="font-size:25px;" type="text" id="lat" name="lat" required>*<br><br>
+   <label for="lon">long:</label>
+  <input style="font-size:25px;" type="text" id="lon" name="lon" required>*<br>
+  <label for="sb">    </label>
+  <input type="submit" id="submit" value="Submit" class="button" ><br>
+
+</font>  
+   <br>Infos:
+<p id="demo"></p>
+
+</form>
+
+<script>
+           
+ var x = document.getElementById("demo");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+/*
+function showPosition(position) {
+    console.log(position)
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+  lat = document.getElementById("lat");
+  lat.value=position.coords.latitude;
+  lon = document.getElementById("lon");
+  lon.value=position.coords.longitude;
+}
+*/
+//Fill in field with default position
+//43.2604685,-80.2133321 Hamilton
+function defaultpos() {
+  lat = document.getElementById("lat");
+  lat.value=43.26;
+  lon = document.getElementById("lon");
+  lon.value=-80.21;
+}
+function mySubmit()
+{
+   
+    if(document.getElementById("location").value =="")
+    {
+        alert("Please enter your name")
+        return false;   
+    }    
+    if(document.getElementById("location").value =="new")
+    {
+        labid=""
+    }
+
+}
+defaultpos()
+//getLocation() 
+
+</script>
+</body>
+</html>

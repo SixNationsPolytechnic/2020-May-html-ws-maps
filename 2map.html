@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--
+  This is a google map example which creates a marker ...
+
+  make sure you add the link to this page to the index.html page
+  <a href="2map.html" target=compass> My SNP Map</a><br><br>
+
+  Change the title and the pupup window with your name repalce ???MARKUS????
+
+  Test the pages ... you should see a good map in the browser with a marker close to Hamiliton .... 
+  
+  
+  change the location to SNP+STEAM+Academy ... use the them in google maps to find the latitude/longitude 
+
+  Test the Page Desktop and Phone 
+
+  try to change the ZOOM level 
+
+  
+  -->
+<html>
+
+<head>
+	<style>
+		/* Set the size of the div element that contains the map */
+		#map {
+			height: 600px;
+			/* The height in pixels */
+			width: 100%;
+			/* The width is the width of the web page */
+		}
+	</style>
+</head>
+
+<body>
+	<h3>??MARKUS??? SNP Position - 1Map </h3>
+	<br>Location:
+    <p id="demo"></p>
+    <!--The div element for the map -->
+    <div id="map"></div>
+    <script>
+
+var map
+//Goole URL with LAT/LON Example .... try to get the location for SNP+STEAM+Academy
+//https://www.google.com/maps/place/Hamilton,+ON/@43.2604685,-80.2133321,10z/data=!4m13!1m7!3m6!1s0x882c986c27de778f:0x2b6aee56d8df0e21!2sHamilton,+ON!3b1!8m2!3d43.2557206!4d-79.8711024!3m4!1s0x882c986c27de778f:0x2b6aee56d8df0e21!8m2!3d43.2557206!4d-79.8711024
+
+function initMap() {
+
+///TODO: Change the Location SNP+STEAM+Academy/
+  var location = {lat:43.260, lng: -80.2133};
+  // The map, centered 
+  // check the google functions here 
+  // https://developers.google.com/maps/documentation/javascript/interaction
+
+  map = new google.maps.Map(
+  document.getElementById('map'), {zoom: 4, center: location}); 
+  //TODO Change the ZOOM 
+
+  
+  // Popup windows
+   var infowindow = new google.maps.InfoWindow({
+    content: "Hello ??MARKUS???!" //TODO:
+  });
+
+//CREATE A Marker
+  var marker = new google.maps.Marker(
+    {position: location, 
+    map: map,  
+    title: 'Your Position'});
+
+  // ADD a Info pop up window when you click on the Marker  
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
+}
+ </script>
+
+ <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2aF0czDYjAT3hAwKKZSpTm_e57VbDzs&callback=initMap">
+    </script>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<DOCTYPE html>
+	<!--
+    TODO
+    Add the compass images (compass5.png) to the page - see bottom of the page
+    use the bar code or your repl url on your phone to see if the compass works
+
+    Add the aplha , beta and gamma event information to the HTML Page SEE TODO
+
+    Add the QRCODE to the page -copy from the index.html
+  -->
+	<html>
+
+	<head>
+		<meta name="viewport" content="initial-scale=1.0">
+		<style>
+			#compass {
+				width: 50%;
+				transform-origin: 50% 50%;
+				-webkit-transform-origin: 50% 50%;
+				-moz-transform-origin: 50% 50%;
+			}
+
+			body {
+				background-color: #cccccc;
+			}
+		</style>
+		<script>
+			function init() {
+        var compass = document.getElementById('compass');
+        if(window.DeviceOrientationEvent) {
+  
+          window.addEventListener('deviceorientation', function(event) {
+                var alpha;
+                //Check for iOS property
+                if(event.webkitCompassHeading) {
+                  alpha = event.webkitCompassHeading;
+                  //Rotation is reversed for iOS
+                  compass.style.WebkitTransform = 'rotate(-' + alpha + 'deg)';
+                }
+                //non iOS
+                else {
+                  console.log(event)
+                  alpha = event.alpha;
+                  webkitAlpha = alpha;
+                  if(!window.chrome) {
+                    //Assume Android stock (this is crude, but good enough for our example) and apply offset
+                    webkitAlpha = alpha-270;
+                  }
+                }
+                /* Event Information - see console.log (event)
+                absolute: false
+alpha: 15.486232272874497
+beta: 99.83294831466003
+bubbles: false
+cancelBubble: false
+cancelable: false
+composed: false
+gamma: 2.9291479259218827
+isTrusted: true
+*/
+//TODO
+                //document.getElementById("angle").value=alpha;
+
+
+                compass.style.Transform = 'rotate(' + alpha + 'deg)';
+                compass.style.WebkitTransform = 'rotate('+ webkitAlpha + 'deg)';
+                //Rotation is reversed for FF
+                compass.style.MozTransform = 'rotate(-' + alpha + 'deg)'; 
+              }, false);
+        }
+      }
+		</script>
+	</head>
+	<h3>Compass for ???Markus ???</h3>
+
+	<body onload="init()">
+		<div id="compassinfo">
+			Angle: <input id=angle name=angle readonly ><br>
+      Gamma: <input id=gamma name=angle readonly >
+    </div>
+    <div id="compassContainer">
+      <img src="Image NAME HERE.png" id="compass"/>
+    </div>
+  
+ </body>
+ 
+</html>

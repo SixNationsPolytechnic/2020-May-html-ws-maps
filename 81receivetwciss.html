@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!--
+  9receiveandmap.html
+This cod will display markers of all students and some weather stations as well as the Internationl space Stations.
+
+Try to add a new icon for the Weather Stations
+
+  -->
+<html>
+
+<head>
+	<style>
+		/* Set the size of the div element that contains the map */
+		#map {
+			height: 600px;
+			/* The height is 400 pixels */
+			width: 100%;
+			/* The width is the width of the web page */
+		}
+	</style>
+</head>
+
+<body>
+	<h3>??MARKUS?? - Space Station 8receiveandmap.html </h3>
+	<br>Location:
+    <p id="message"></p>
+        <p id="usermarker"></p>
+    <p id="location"></p>
+    <!--The div element for the map -->
+    <div id="map"></div>
+
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://OptimalStarkField--mvankempen.repl.co/8receiveandmap.html" title="QRCode" height=150 width=150><<<<< ADJUST the URL
+<br> QR Code to get the website onto your phone<br><br>
+
+<script>
+
+// Initialize and add the map
+var m = document.getElementById("message");
+function getLocation() {
+    if (navigator.geolocation) {
+        m.innerHTML = "Please WAIT ?????";
+        navigator.geolocation.getCurrentPosition(getLocation_success, getLocation_error);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+        m.innerHTML = "Geolocation  is not supported";
+    }
+}
+//Toronto
+dpos={coords:  {latitude: 4.6699136, longitude: -79.413248}}
+
+function getLocation_success(pos){
+    showPosition(dpos)    
+}
+
+function getLocation_error(err){
+    console.warn('ERROR(' + err.code + '): ' + err.message);
+     m.innerHTML = "Error using default position";
+     console.log("Use default position")
+   // showPosition(dpos)    
+}
+function getLocation_error(err){
+    console.warn('ERROR(' + err.code + '): ' + err.message);
+}
+
+var mypos;
+var x = document.getElementById("location");
+
+function showPosition(position) {
+  //TODO::: Print he location in the HTML fields
+ //   x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+       m.innerHTML = "Ok we got your location ????MARKUS???";
+    console.log(position); //TODO print Location 
+    mypos=position;
+    initMap()
+}
+
+var map
+function initMap() {
+
+  var Location = {lat:mypos.coords.latitude, lng: mypos.coords.longitude};
+  // The map, centered at Location
+  map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 4, center: Location});
+
+  // The marker, positioned at Location
+
+   var infowindow = new google.maps.InfoWindow({
+    content: "??MARKUS???"
+  });
+
+  var marker = new google.maps.Marker({position: Location, map: map,  
+  title: 'My Location '});
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
+}
+var u = document.getElementById("usermarker");
+function createmarker2(payload)
+{
+  // ICONS
+//http://kml4earth.appspot.com/icons.html
+  
+ icon=null;
+
+  if( payload.name === undefined)
+  {}
+      payload.name="weatherstation";
+        //TODO:::
+}
+    if( payload.id === "iss")
+    {
+      payload.name="Space Station"
+      icon = "http://maps.google.com/mapfiles/kml/pal2/icon56.png"
+    } 
+      name=payload.name
+      lat=payload.lat
+      lon=payload.lon
+ console.log("createmarker");
+ u.innerHTML = "Creating Marker for "+name;
+ var myLatlng = new google.maps.LatLng(lat,lon);
+
+   var infowindow = new google.maps.InfoWindow({
+    content: name + " "+ payload.id
+  });
+
+
+  var marker = new google.maps.Marker({position: myLatlng, 
+  animation: google.maps.Animation.DROP,
+  icon: icon,
+  map: map,  
+  title: name});
+
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
+}
+
+
+var x = document.getElementById("demo");
+   
+let socket = new WebSocket("wss://thinklab1239.mybluemix.net/ws/snp");
+
+socket.onopen = function(e) {
+  console.log("[open] Connection established");
+  //SEND Websocket messages every 10sec
+  setInterval(myTimer, 10000);
+};
+
+socket.onclose = function(event) {
+  if (event.wasClean) {
+     console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+  } else {
+    // e.g. server process killed or network down
+    // event.code is usually 1006 in this case
+     console.log('[close] Connection died');
+  }
+};
+socket.onmessage = function(event) {
+   console.log(`[message] Data received from server: ${event.data}`);
+   msg=JSON.parse(event.data)
+   console.log("[message]")
+   console.log(msg.payload)
+
+   createmarker2(msg.payload)
+};
+
+socket.onerror = function(error) {
+   console.log(`[error] ${error.message}`);
+};
+
+function myTimer() {
+   console.log("Sending GPS to server");
+
+  mymsg={}
+  mymsg.payload = { };
+//TODO ... create JSON object ... 
+  mymsg.payload.event="coordinates"
+  mymsg.payload.name="Markus2"
+  mymsg.payload.id="02"
+  mymsg.payload.lon=mypos.coords.longitude
+  mymsg.payload.lat=mypos.coords.latitude
+  mymsg.payload.ts=Date.now() //Timestamp
+  socket.send(JSON.stringify(mymsg));
+  console.log(mymsg)
+  u.innerHTML = "";
+}
+
+getLocation()
+
+</script>
+
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2aF0czDYjAT3hAwKKZSpTm_e57VbDzs&callback=getLocation">
+    </script>
+
+  </body>
+</html>
