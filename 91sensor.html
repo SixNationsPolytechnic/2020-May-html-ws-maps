@@ -72,7 +72,7 @@
 
 
 	<h1>Device Orientation API</h1>
-
+   <button id=request>request permissions</button>
 	
 
       <div id="do-results">
@@ -164,6 +164,55 @@ function showPosition(position) {
     document.getElementById('lat').innerHTML = position.coords.latitude
     document.getElementById('lon').innerHTML = position.coords.longitude
 }
+
+// there is a bug in ios to fix we need to ask permissions
+
+ if ( location.protocol != "https:" ) {
+location.href = "https:" + window.location.href.substring( window.location.protocol.length );
+}
+function permission () {
+  console.log("check")
+    if ( typeof( DeviceMotionEvent ) !== "undefined" && typeof( DeviceMotionEvent.requestPermission ) === "function" ) {
+        // (optional) Do something before API request prompt.
+        DeviceMotionEvent.requestPermission()
+            .then( response => {
+            // (optional) Do something after API prompt dismissed.
+            if ( response == "granted" ) {
+                window.addEventListener( "devicemotion", (e) => {
+                   init()
+             console.log("ok")
+                })
+            }
+        })
+            .catch( console.error )
+    } else {
+        alert( "DeviceMotionEvent is not defined" );
+    }
+}
+function permissiongeo () {
+  console.log("check")
+    if ( typeof( DeviceMotionEvent ) !== "undefined" && typeof( DeviceMotionEvent.requestPermission ) === "function" ) {
+        // (optional) Do something before API request prompt.
+        DeviceMotionEvent.requestPermission()
+            .then( response => {
+            // (optional) Do something after API prompt dismissed.
+            if ( response == "granted" ) {
+                window.addEventListener( "devicemotion", (e) => {
+                   init()
+             console.log("ok")
+                })
+            }
+        })
+            .catch( console.error )
+    } else {
+        alert( "DeviceMotionEvent is not defined" );
+    }
+}
+const btn = document.getElementById( "requestgeo" );
+btn.addEventListener( "click", permissiongeo );
+const btn = document.getElementById( "request" );
+btn.addEventListener( "click", permission );
+
 
 getLocation()
 
