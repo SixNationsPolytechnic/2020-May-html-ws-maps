@@ -28,6 +28,7 @@
 				background-color: #cccccc;
 			}
 		</style>
+    <button id=request>request permissions</button>
 		<script>
 			function init() {
         var compass = document.getElementById('compass');
@@ -40,9 +41,9 @@
                   alpha = event.webkitCompassHeading;
                   //Rotation is reversed for iOS
                   compass.style.WebkitTransform = 'rotate(-' + alpha + 'deg)';
-                }
+             
                 //non iOS
-                else {
+                }else {
                   console.log(event)
                   alpha = event.alpha;
                   webkitAlpha = alpha;
@@ -50,6 +51,8 @@
                     //Assume Android stock (this is crude, but good enough for our example) and apply offset
                     webkitAlpha = alpha-270;
                   }
+              
+               compass.style.WebkitTransform = 'rotate('+ webkitAlpha + 'deg)';
                 }
                 /* Event Information - see console.log (event)
                 absolute: false
@@ -61,25 +64,53 @@ gamma: 2.9291479259218827
                 document.getElementById("alpha").value=alpha;
 
 
-                compass.style.Transform = 'rotate(' + alpha + 'deg)';
-                compass.style.WebkitTransform = 'rotate('+ webkitAlpha + 'deg)';
+                
                 //Rotation is reversed for FF
                 compass.style.MozTransform = 'rotate(-' + alpha + 'deg)'; 
               }, false);
         }
       }
+
+// there is a bug in ios to fix we need to ask permissions
+
+ if ( location.protocol != "https:" ) {
+location.href = "https:" + window.location.href.substring( window.location.protocol.length );
+}
+function permission () {
+  console.log("check")
+    if ( typeof( DeviceMotionEvent ) !== "undefined" && typeof( DeviceMotionEvent.requestPermission ) === "function" ) {
+        // (optional) Do something before API request prompt.
+        DeviceMotionEvent.requestPermission()
+            .then( response => {
+            // (optional) Do something after API prompt dismissed.
+            if ( response == "granted" ) {
+                window.addEventListener( "devicemotion", (e) => {
+                   init()
+             console.log("ok")
+                })
+            }
+        })
+            .catch( console.error )
+    } else {
+        alert( "DeviceMotionEvent is not defined" );
+    }
+}
+const btn = document.getElementById( "request" );
+btn.addEventListener( "click", permission );
+
 		</script>
 	</head>
 	<h3>Compass for ???Markus ???</h3>
 
 	<body onload="init()">
 		<div id="compassinfo">
-			Angle: <input id=alpha name=alpha readonly ><br>
+
+  		Angle: <input id=alpha name=alpha readonly ><br>
       Gamma: <input id=gamma name=gamma readonly ><br> //TODO - add gamma and beta fields
 
     </div>
     <div id="compassContainer">
-      <img src="???IMAGES???.png" id="compass"/>
+      <img src="compass5.png" id="compass"/>
     </div>
 
 
@@ -90,6 +121,7 @@ gamma: 2.9291479259218827
 console.log(document.getElementById('qrcode').src)
 console.log(location.href)
 document.getElementById('qrcode').src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+location.href
+console.log("hello")
 </script>
 
  </body>
