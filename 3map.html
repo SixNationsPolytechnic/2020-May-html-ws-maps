@@ -33,7 +33,7 @@ NOTE: You will be prompted to allow the browser to get your location maybe sure 
 </head>
 
 <body>
-	<h3>??MARKUS?? - Automatic position 3Map.html </h3>
+	<h3>Hans - Automatic position 3Map.html </h3>
 	<br>Location:
     <p id="message"></p>
     <p id="location"></p>
@@ -69,7 +69,9 @@ var x = document.getElementById("location");
 
 function showPosition(position) {
   //TODO::: Print he location in the HTML fields
- //   x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+
+
+    x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
        m.innerHTML = "Ok we got your location ????MARKUS???";
     console.log(position); //TODO print Location 
     mypos=position;
@@ -82,12 +84,12 @@ function initMap() {
   var Location = {lat:mypos.coords.latitude, lng: mypos.coords.longitude};
   // The map, centered at Location
   map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: Location});
+      document.getElementById('map'), {zoom: 10, center: Location});
 
   // The marker, positioned at Location
 
    var infowindow = new google.maps.InfoWindow({
-    content: "??MARKUS???"
+    content: "Hello Hans"
   });
 
   var marker = new google.maps.Marker({position: Location, map: map,  

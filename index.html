@@ -1,65 +1,177 @@
 <!DOCTYPE html>
 <!--
-  Our mission is to track your fellow Students and the Space Station
+ 93sensormap.html
 
-  You this page to create a index/links package to all the other html pages
+ this map display the sensor information form all students on a map.
 
-  1. Make sure you add your name on each pages see ????Markus????
-  2. Create links see 1compass.html example to all html pages like 2map.html and 3map.html etc
-  3. Make the Page look nice with some style ;)
-  4. Change/Add  the console.log message at the bottom
-  5. Try the QRCode with youe phone and see if you can open the index pages
+ it will create a personalize marker  for id 99 which is animated.
 
-  Tip: since we have some debigging issue with the browser you may have to copy code to the index.html ... make sure to copy the coe to indexbak.html / ask instructore for help if you run into issues.
+ change the id so it matches your phone sensor 
 
-  This is pretty cool stuff call code piese should work there are some excerise in each code /page but we will walk you thru this ... if you get stuck just move to the next one.
-
-  Stop at 4form.html and 7sendmylocation.html and 91sensor.html ... so we can all sync up
-
-  make sure everybody picks a unique name and id like markus id - 98
-version 9:28
   -->
 <html>
 
 <head>
 	<style>
-		body {
-			background-color: #cccccc;
+		/* Set the size of the div element that contains the map */
+		#map {
+			height: 600px;
+			/* The height is 400 pixels */
+			width: 100%;
+			/* The width is the width of the web page */
 		}
 	</style>
 </head>
 
 <body>
+	<h3>??MARKUS?? - Map Sensors 93sensormap.html </h3>
+	<br>Messages:
+    <p id="message"></p>
+    <p id="usermarker"></p>
+    <p id="location"></p>
+    <!--The div element for the map -->
+    <div id="map"></div>
 
-	<h3>???Markus???? Index Pages </h3>
+<script>
 
-	<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://YOUR-REPL-URL???" title="QRCode" height=150 width=150><<<<< ADJUST the URL
+// Initialize and add the map
+var m = document.getElementById("message");
+
+
+var map
+function initMap() {
+
+  var Location = {lat:43.6699136, lng: -79.413248};
+  // The map, centered at Location
+  map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 8, center: Location});
+
+  // The marker, positioned at Location
+
+   var infowindow = new google.maps.InfoWindow({
+    content: "??MARKUS???"
+  });
+
+}
+
+
+var u = document.getElementById("usermarker");
+var m = document.getElementById("message");
+
+var mymarker=null;
+function mycreatemarker(name,lat,lon,alpha)
+{
+ console.log("mycreatemarker");
+ u.innerHTML = "Creating Marker for "+name;
+ var myLatlng = new google.maps.LatLng(lat,lon);
+
+   var infowindow = new google.maps.InfoWindow({
+    content: name
+  });
+if(mymarker !== null)
+ mymarker.setMap(null);
+
+//  mymarker.remove()
+  mymarker = new google.maps.Marker({position: myLatlng, 
+ // animation: google.maps.Animation.DROP,
+  map: map,  
+    icon: {
+      path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+      scale: 8,
+     // strokeColor: '#00F',
+      rotation: alpha,
+    },
+  title: name});
+
+  mymarker.addListener('click', function() {
+    infowindow.open(map, mymarker);
+  });
+}
+
+function createmarker(name,lat,lon)
+{
+ console.log("createmarker");
+ u.innerHTML = "Creating Marker for "+name;
+ var myLatlng = new google.maps.LatLng(lat,lon);
+
+   var infowindow = new google.maps.InfoWindow({
+    content: name
+  });
+
+  var marker = new google.maps.Marker({position: myLatlng, 
+ // animation: google.maps.Animation.DROP,
+  map: map,  
+  title: name});
+
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
+}
+
+
+var x = document.getElementById("demo");
+   
+let socket = new WebSocket("wss://thinklab1239.mybluemix.net/ws/snp");
+
+socket.onopen = function(e) {
+  console.log("[open] Connection established");
+  m.innerHTML = "Connection established ...waiting for messages";
+};
+
+socket.onclose = function(event) {
+    alert("Connect Closed ... reload Page");
+  if (event.wasClean) {
+     console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+  } else {
+    // e.g. server process killed or network down
+    // event.code is usually 1006 in this case
+     console.log('[close] Connection died');
+  }
+};
+socket.onmessage = function(event) {
+  msg=JSON.parse(event.data)
+     console.log("[message]")
+   console.log(msg.payload)
+
+    if(msg.payload.id === undefined)
+      return;
+
+    if(msg.payload.id === '88') //TODO use your ID
+      mycreatemarker(msg.payload.name,msg.payload.lat,msg.payload.lon,msg.payload.alpha)
+
+   console.log(`[message] Data received from server: ${event.data}`);
+
+ 
+   if(msg.payload.name !== undefined)
+     createmarker(msg.payload.name,msg.payload.lat,msg.payload.lon)
+};
+
+socket.onerror = function(error) {
+   console.log(`[error] ${error.message}`);
+   alert("Websocket died")
+
+    socket = new WebSocket("wss://thinklab1239.mybluemix.net/ws/snp");
+};
+
+
+</script>
+
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2aF0czDYjAT3hAwKKZSpTm_e57VbDzs&callback=initMap">
+    </script>
+
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=???" id="qrcode" title="QRCode" height=150 width=150><<<<< ADJUST the URL
 <br> QR Code to get the website onto your phone<br><br>
 
-<a href="1compass.html" target=compass>Link to Compass WebSite</a><br><br>
-
-<a href="2map.html" target=2map>Link to 2Map WebSite</a><br><br>
-<a href="92sensortomap.html" target=2map>Link to 92sensortomap WebSite</a><br><br>
-<b>add more links to pages here </b>
-<br><br>
-
-
-92sensortomap
-<!--
-Link Example
-<a href="map.html" target=map> Link to Compass WebSite</a>
-<br> TEXTTEXT<br>
-
-Iframe Example 
-
-<iframe src="5map.html" title="MyMapWithPosition" height=350 width=350></iframe><br>
-
-<a href="map4all.html">All Student Positions via WebSockets</a><br>
-<iframe src="map4all.html" title="AllStudenMarkers" height=350 width=350></iframe>
--->
-<script>
-  console.log("Hello YOU!")
-   console.log("version 9:28")
+      <script>
+console.log(document.getElementById('qrcode').src)
+console.log(location.href)
+document.getElementById('qrcode').src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+location.href
 </script>
   </body>
 </html>

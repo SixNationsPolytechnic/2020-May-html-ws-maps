@@ -32,36 +32,38 @@
 </head>
 
 <body>
-	<h3>??MARKUS??? SNP Position - 1Map </h3>
+	<h3>Hans SNP Position - 1Map </h3>
 	<br>Location:
     <p id="location"></p>
     <!--The div element for the map -->
     <div id="map"></div>
     <script>
-
+      /*
+//https://www.google.com/maps/place/London,+ON/@42.9487956,-81.3887036,11z/daata=!4m13!1m7!3m6!1s0x882ef20ea88d9b0b:0x28c7d7699a056b95!2sLondon,+ON!3b1!8m2!3d42.9849233!4d-81.2452768!3m4!1s0x882ef20ea88d9b0b:0x28c7d7699a056b95!8m2!3d42.9849233!4d-81.2452768
+*/
 var map;
 //Goole URL with LAT/LON Example .... try to get the location for SNP+STEAM+Academy
 //https://www.google.com/maps/place/Hamilton,+ON/@43.2604685,-80.2133321,10z/data=!4m13!1m7!3m6!1s0x882c986c27de778f:0x2b6aee56d8df0e21!2sHamilton,+ON!3b1!8m2!3d43.2557206!4d-79.8711024!3m4!1s0x882c986c27de778f:0x2b6aee56d8df0e21!8m2!3d43.2557206!4d-79.8711024
 var x = document.getElementById("location");
- x.innerHTML = "What is Your Location ????MARKUS??? ";
+ x.innerHTML = "What is Your Location Hans Zimmer ";
 
  
 function initMap() {
 
 ///TODO: Change the Location SNP+STEAM+Academy/
-  var location = {lat:43.260, lng: -80.2133};
+  var location = {lat:42.960, lng: -81.245};
   // The map, centered 
   // check the google functions here 
   // https://developers.google.com/maps/documentation/javascript/interaction
 
   map = new google.maps.Map(
-  document.getElementById('map'), {zoom: 4, center: location}); 
+  document.getElementById('map'), {zoom: 8, center: location}); 
   //TODO Change the ZOOM 
 
   
   // Popup windows
    var infowindow = new google.maps.InfoWindow({
-    content: "Hello ??MARKUS???!" //TODO:
+    content: "Hello Hanz Zimmer" //TODO:
   });
 
 //CREATE A Marker

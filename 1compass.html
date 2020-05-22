@@ -60,10 +60,12 @@ alpha: 15.486232272874497
 beta: 99.83294831466003
 gamma: 2.9291479259218827
 */
-//TODO - add gamma and beta 
-                document.getElementById("alpha").value=alpha;
+//TODO - add gamma and event.beta 
 
 
+                document.getElementById("alpha").value=event.alpha;
+               document.getElementById("beta").value=event.beta;
+              document.getElementById("gamma").value=event.gamma;
                 
                 //Rotation is reversed for FF
                 compass.style.MozTransform = 'rotate(-' + alpha + 'deg)'; 
@@ -100,18 +102,20 @@ btn.addEventListener( "click", permission );
 
 		</script>
 	</head>
-	<h3>Compass for ???Markus ???</h3>
+	<h3>Compass for Hans Zimmer</h3>
 
 	<body onload="init()">
 		<div id="compassinfo">
 
-  		Angle: <input id=alpha name=alpha readonly ><br>
+  		Alpha: <input id=alpha name=alpha readonly ><br>
+      	Beta: <input id=beta name=beta readonly ><br>
       Gamma: <input id=gamma name=gamma readonly ><br> //TODO - add gamma and beta fields
 
     </div>
     <div id="compassContainer">
       <img src="compass5.png" id="compass"/>
     </div>
+
 
 
       <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=???" id="qrcode" title="QRCode" height=150 width=150>

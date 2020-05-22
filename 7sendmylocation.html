@@ -32,7 +32,7 @@
     </style>
   </head>
   <body>
-    <h3>??MARKUS?? - Automatic position 7sendmylocation.html </h3>
+    <h3>Hans - Automatic position 7sendmylocation.html </h3>
     <br>Location:
     <p id="message"></p>
     <p id="location"></p>
@@ -45,7 +45,7 @@
 var m = document.getElementById("message");
 function getLocation() {
     if (navigator.geolocation) {
-        m.innerHTML = "Please WAIT ?????";
+        m.innerHTML = "Please WAIT Hans"
         navigator.geolocation.getCurrentPosition(getLocation_success, getLocation_error);
     } else {
         alert("Geolocation is not supported by this browser.");
@@ -67,7 +67,7 @@ var x = document.getElementById("location");
 function showPosition(position) {
   //TODO::: Print he location in the HTML fields
  //   x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
-       m.innerHTML = "Ok we got your location ????MARKUS???";
+       m.innerHTML = "Ok we got your location for Hans";
     console.log(position); //TODO print Location 
     mypos=position;
     initMap()
@@ -84,7 +84,7 @@ function initMap() {
   // The marker, positioned at Location
 
    var infowindow = new google.maps.InfoWindow({
-    content: "??MARKUS???"
+    content: "Hans"
   });
 
   var marker = new google.maps.Marker({position: Location, map: map,  
@@ -125,8 +125,8 @@ function myTimer() {
   mymsg.payload = { };
 //TODO ... create JSON object ... 
   mymsg.payload.event="coordinates"
-  mymsg.payload.name="YOURNAME!"  //TODO::: adjust the anem and ID
-  mymsg.payload.id="???URID???"
+  mymsg.payload.name="Hans Zimmer!"  //TODO::: adjust the anem and ID
+  mymsg.payload.id="77"
   mymsg.payload.lon=mypos.coords.longitude
   mymsg.payload.lat=mypos.coords.latitude
   mymsg.payload.ts=Date.now() //Timestamp

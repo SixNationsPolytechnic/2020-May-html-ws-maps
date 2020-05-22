@@ -5,10 +5,19 @@
   You this page to create a index/links package to all the other html pages
 
   1. Make sure you add your name on each pages see ????Markus????
-  2. Adjust the QRCode URL with your Repl URL see YOURURL???
-  3. Create links see 1compass.html example to all html pages like 2map.html and 3htmlform.html
-  4. Make the Page look nice with some style ;)
-  5. Change the console.log message at the bottom
+  2. Create links see 1compass.html example to all html pages like 2map.html and 3map.html etc
+  3. Make the Page look nice with some style ;)
+  4. Change/Add  the console.log message at the bottom
+  5. Try the QRCode with youe phone and see if you can open the index pages
+
+  Tip: since we have some debigging issue with the browser you may have to copy code to the index.html ... make sure to copy the coe to indexbak.html / ask instructore for help if you run into issues.
+
+  This is pretty cool stuff call code piese should work there are some excerise in each code /page but we will walk you thru this ... if you get stuck just move to the next one.
+
+  Stop at 4form.html and 7sendmylocation.html and 91sensor.html ... so we can all sync up
+
+  make sure everybody picks a unique name and id like markus id - 98
+version 9:28
   -->
 <html>
 
@@ -22,15 +31,30 @@
 
 <body>
 
-	<h3>???Markus???? Index Pages </h3>
+	<h3>Hans Index Pages </h3>
 
-	<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://YOUR-REPL-URL???" title="QRCode" height=150 width=150><<<<< ADJUST the URL
+<!--QRCODE -->
+
+         <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=???" id="qrcode" title="QRCode" height=150 width=150>
 <br> QR Code to get the website onto your phone<br><br>
 
-<a href="compasspage????.html" target=compass> ADJUSTME ??? Link to Compass WebSite</a><br><br>
-<b>more links to pages here </b>
+      <script>
+console.log(document.getElementById('qrcode').src)
+console.log(location.href)
+document.getElementById('qrcode').src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+location.href
+</script>
+
+<a href="1compass.html" target=compass>Link to Compass WebSite</a><br><br>
+
+<a href="92sensortomap.html" target=92sensortomap>Link to 92sensortomap WebSite</a><br><br>
+<a href="3map.html" target=2map>Link to 3Map WebSite</a><br><br>
+<a href="4form.html" target=2map>Link to 4form WebSite</a><br><br>
+<a href="92sensortomap.html" target=2map>Link to 92sensortomap WebSite</a><br><br>
+<b>add more links to pages here </b>
 <br><br>
 
+
+92sensortomap
 <!--
 Link Example
 <a href="map.html" target=map> Link to Compass WebSite</a>
@@ -44,7 +68,8 @@ Iframe Example
 <iframe src="map4all.html" title="AllStudenMarkers" height=350 width=350></iframe>
 -->
 <script>
-  console.log("Hello YOU!")
+  console.log("Hello Hans Zimmer!")
+   console.log("version 9:28")
 </script>
   </body>
 </html>

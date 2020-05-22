@@ -136,7 +136,7 @@ socket.onmessage = function(event) {
     if(msg.payload.id === undefined)
       return;
 
-    if(msg.payload.id === '99') //TODO use your ID
+    //if(msg.payload.id === '88') //TODO use your ID
       mycreatemarker(msg.payload.name,msg.payload.lat,msg.payload.lon,msg.payload.alpha)
 
    console.log(`[message] Data received from server: ${event.data}`);

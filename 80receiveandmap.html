@@ -23,7 +23,7 @@
     </style>
   </head>
   <body>
-    <h3>??MARKUS?? - Map Students 80receiveandmap.html </h3>
+    <h3>Hans - Map Students 80receiveandmap.html </h3>
     <br>Location:
     <p id="message"></p>
         <p id="usermarker"></p>
@@ -37,7 +37,7 @@
 var m = document.getElementById("message");
 function getLocation() {
     if (navigator.geolocation) {
-        m.innerHTML = "Please WAIT ?????";
+        m.innerHTML = "Please WAIT Hans"
         navigator.geolocation.getCurrentPosition(getLocation_success, getLocation_error);
     } else {
         alert("Geolocation is not supported by this browser.");
@@ -85,7 +85,7 @@ function initMap() {
   // The marker, positioned at Location
 
    var infowindow = new google.maps.InfoWindow({
-    content: "??MARKUS???"
+    content: "HANS"
   });
 
   var marker = new google.maps.Marker({position: Location, 
@@ -165,8 +165,8 @@ function myTimer() {
   mymsg.payload = { };
 //TODO ... create JSON object ... 
   mymsg.payload.event="coordinates"
-  mymsg.payload.name="YOURNAME" //TODO adjust name 
-  mymsg.payload.id="???URID???"
+  mymsg.payload.name="HANS ZIMMER" //TODO adjust name 
+  mymsg.payload.id="88"
   mymsg.payload.lon=mypos.coords.longitude
   mymsg.payload.lat=mypos.coords.latitude
   mymsg.payload.ts=Date.now() //Timestamp

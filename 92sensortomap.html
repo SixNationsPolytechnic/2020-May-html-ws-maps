@@ -286,8 +286,8 @@ function myTimer() {
   mymsg.payload = { };
 //TODO ... create JSON object ... 
   mymsg.payload.event="coordinates"
-  mymsg.payload.name="My Phone sensor????"
-  mymsg.payload.id="91"
+  mymsg.payload.name=person
+  mymsg.payload.id=personid
   mymsg.payload.lon=mypos.coords.longitude
   mymsg.payload.lat=mypos.coords.latitude
   mymsg.payload.ts=Date.now() //Timestamp
@@ -295,15 +295,15 @@ function myTimer() {
   console.log(mymsg)
 }
 
-function sensorevent(alpha) {
+function sensorevent(alpha,beta,gamma) {
    console.log("Sensorevent - Sending GPS to server");
 
   mymsg={}
   mymsg.payload = { };
 //TODO ... create JSON object ... 
   mymsg.payload.event="sensorevent"
-  mymsg.payload.name="My Phone sensor????"  //TODO adjust the name and ID
-  mymsg.payload.id="99"
+  mymsg.payload.name=person //TODO adjust the name and ID
+  mymsg.payload.id=personid
   mymsg.payload.lon=mypos.coords.longitude
   mymsg.payload.lat=mypos.coords.latitude
   mymsg.payload.alpha=alpha
