@@ -2,18 +2,20 @@
 <!--
   3map.html 
 
-  In this example we use the geolocation service to the our GPS location form the browser or the phone automatically .
+  In this example we use the geolocation service from the browser
+  to get your GPS location using t the computer browser or the phone automatically .
 
-NOTE: Yoou will be prompted to allow the browser to get your location maybe sure to allow this.
+NOTE: You will be prompted to allow the browser to get your location maybe sure to allow this.
+- this may not work on ipad iphone
 
   TODO: 
   
-  1. Adjust the Page with your name 
-  2. Adjust the QR URL 
-  3. Test the Page with your Phone / Chrome Browser
-  4. Dispay the location in the html field see todo:
+  1. Adjust the Page with your name ???MARKUS???
+ 
+  2. Test the Page with your Phone / Chrome Browser
+  3. Dispay name / LAT/LON the location in the html field see todo: tag
 
-
+  Code walk thru
 
   -->
 <html>
@@ -37,9 +39,6 @@ NOTE: Yoou will be prompted to allow the browser to get your location maybe sure
     <p id="location"></p>
     <!--The div element for the map -->
     <div id="map"></div>
-
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://OptimalStarkField--mvankempen.repl.co/3map.html" title="QRCode" height=150 width=150><<<<< ADJUST the URL
-<br> QR Code to get the website onto your phone<br><br>
 
 
 
@@ -93,6 +92,8 @@ function initMap() {
 
   var marker = new google.maps.Marker({position: Location, map: map,  
   title: 'My Location '});
+
+
   marker.addListener('click', function() {
     infowindow.open(map, marker);
   });
@@ -109,6 +110,18 @@ function initMap() {
     <script 
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2aF0czDYjAT3hAwKKZSpTm_e57VbDzs&callback=getLocation">
     </script>
+
+
+<!--QRCODE -->
+
+         <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=???" id="qrcode" title="QRCode" height=150 width=150>
+<br> QR Code to get the website onto your phone<br><br>
+
+      <script>
+console.log(document.getElementById('qrcode').src)
+console.log(location.href)
+document.getElementById('qrcode').src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+location.href
+</script>
 
   </body>
 </html>

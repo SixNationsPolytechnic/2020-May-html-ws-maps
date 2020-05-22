@@ -11,6 +11,8 @@
 
   Add the City to the html form which will be the 4th url parameter and display the name in the infowindows
 
+  STOP here and wait for other to catchup
+
   -->
 <html>
 
@@ -59,7 +61,7 @@ function getLocation_error(err){
     console.warn('ERROR(' + err.code + '): ' + err.message);
      m.innerHTML = "Error using default position";
      console.log("Use default position")
-   // showPosition(dpos)    
+    showPosition(dpos)    
 }
 
 var mypos;
@@ -72,7 +74,7 @@ function showPosition(position) {
     console.log(position); //TODO print Location 
     mypos=position;
     initMap()
-    addlistener()
+    geturlparameter()
 }
 
 var map
@@ -81,7 +83,7 @@ function initMap() {
   var Location = {lat:mypos.coords.latitude, lng: mypos.coords.longitude};
   // The map, centered at Location
   map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: Location});
+      document.getElementById('map'), {zoom: 8, center: Location});
 
   // The marker, positioned at Location
 
@@ -96,12 +98,12 @@ function initMap() {
   });
 }
 
-TODO:
+//TODO:
 var mname=""
 var mlat=""
 var mlon=""
 function geturlparameter(){
-   console.log("geturlparameter");
+console.log("geturlparameter");
 console.log(location.search)
 console.log(location.search.indexOf("="))
 if(location.search.indexOf("name=") != -1)
@@ -113,6 +115,7 @@ if(location.search.indexOf("name=") != -1)
   console.log("Name = "+mname)  ; 
   console.log("mlat = "+mlat)  ; 
   console.log("mlon = "+mlon)  ; 
+  createmarker(mname,mlat,mlon);
 }
 
 function createmarker(name,lat,lon)
@@ -144,5 +147,17 @@ function createmarker(name,lat,lon)
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2aF0czDYjAT3hAwKKZSpTm_e57VbDzs&callback=getLocation">
     </script>
 <a href="4form.html" target=compass>Add a Marker </a><br><br>
+
+
+<!--QRCODE -->
+
+         <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=???" id="qrcode" title="QRCode" height=150 width=150>
+<br> QR Code to get the website onto your phone<br><br>
+
+      <script>
+console.log(document.getElementById('qrcode').src)
+console.log(location.href)
+document.getElementById('qrcode').src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+location.href
+</script>
   </body>
 </html>

@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <!--
-  9receiveandmap.html
-This cod will display markers of all students and some weather stations as well as the Internationl space Stations.
+  81receivetwciss.html
+This code will display markers of all students and some weather stations as well as the Internationl space Stations.
+
+adjust the name 
 
 Try to add a new icon for the Weather Stations
 
+TODO: make a special marker for you position ... based on the ID
+
+
+STOP HERE and wau for people to catch up
   -->
 <html>
 
@@ -12,7 +18,7 @@ Try to add a new icon for the Weather Stations
 	<style>
 		/* Set the size of the div element that contains the map */
 		#map {
-			height: 600px;
+			height: 550px;
 			/* The height is 400 pixels */
 			width: 100%;
 			/* The width is the width of the web page */
@@ -28,9 +34,6 @@ Try to add a new icon for the Weather Stations
     <p id="location"></p>
     <!--The div element for the map -->
     <div id="map"></div>
-
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://OptimalStarkField--mvankempen.repl.co/8receiveandmap.html" title="QRCode" height=150 width=150><<<<< ADJUST the URL
-<br> QR Code to get the website onto your phone<br><br>
 
 <script>
 
@@ -97,7 +100,7 @@ function initMap() {
 var u = document.getElementById("usermarker");
 function createmarker2(payload)
 {
-  // ICONS
+  // List of ICONS
 //http://kml4earth.appspot.com/icons.html
   
  icon=null;
@@ -107,14 +110,22 @@ function createmarker2(payload)
       payload.name="weatherstation";
         //TODO:::
 }
+
+    if( payload.id === "03") /// YOUR ID
+    {
+      payload.name="your name n"
+      icon = "//maps.google.com/mapfiles/kml/shapes/golf.png"
+
+    } 
     if( payload.id === "iss")
     {
       payload.name="Space Station"
-      icon = "http://maps.google.com/mapfiles/kml/pal2/icon56.png"
+      icon = "//maps.google.com/mapfiles/kml/pal2/icon56.png"
     } 
       name=payload.name
       lat=payload.lat
       lon=payload.lon
+
  console.log("createmarker");
  u.innerHTML = "Creating Marker for "+name;
  var myLatlng = new google.maps.LatLng(lat,lon);
@@ -175,8 +186,8 @@ function myTimer() {
   mymsg.payload = { };
 //TODO ... create JSON object ... 
   mymsg.payload.event="coordinates"
-  mymsg.payload.name="Markus3"
-  mymsg.payload.id="03"
+  mymsg.payload.name="???Markus3???" //toDO adjust
+  mymsg.payload.id="03" //toDO adjust
   mymsg.payload.lon=mypos.coords.longitude
   mymsg.payload.lat=mypos.coords.latitude
   mymsg.payload.ts=Date.now() //Timestamp
@@ -197,6 +208,16 @@ getLocation()
     <script 
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2aF0czDYjAT3hAwKKZSpTm_e57VbDzs&callback=getLocation">
     </script>
+
+     <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=???" id="qrcode" title="QRCode" height=150 width=150>
+<br> QR Code to get the website onto your phone<br><br>
+
+      <script>
+console.log(document.getElementById('qrcode').src)
+console.log(location.href)
+document.getElementById('qrcode').src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+location.href
+</script>
+
 
   </body>
 </html>

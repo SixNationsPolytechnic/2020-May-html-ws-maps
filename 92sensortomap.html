@@ -2,12 +2,13 @@
 <html lang="en">
 <!--
 
-  This is an HTML Sensors. It access the phone/Browser orientation,accelormeter and geolocation API's
+  This is an HTML Sensors. It accesses the phone/Browser orientation,accelormeter and geolocation API's
 
   it will prompt for a name and and id
 
   it will than send the information to central server with device events.
 
+  use the 93sensormap.html to see you data make sure your name and id are matching 
   -->
 <head>
 	<meta charset="UTF-8">
@@ -273,6 +274,9 @@ socket.onclose = function(event) {
 
 socket.onerror = function(error) {
    console.log(`[error] ${error.message}`);
+   alert("Websocket died")
+    socket = new WebSocket("wss://thinklab1239.mybluemix.net/ws/snp");
+
 };
 
 function myTimer() {
@@ -298,7 +302,7 @@ function sensorevent(alpha) {
   mymsg.payload = { };
 //TODO ... create JSON object ... 
   mymsg.payload.event="sensorevent"
-  mymsg.payload.name="My Phone sensor????"
+  mymsg.payload.name="My Phone sensor????"  //TODO adjust the name and ID
   mymsg.payload.id="99"
   mymsg.payload.lon=mypos.coords.longitude
   mymsg.payload.lat=mypos.coords.latitude
@@ -311,10 +315,13 @@ function sensorevent(alpha) {
 }
 
       </script>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://OptimalStarkField--mvankempen.repl.co/92sensortomap.html" id="qrcode" title="QRCode" height=150 width=150><<<<< ADJUST the URL
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=???" id="qrcode" title="QRCode" height=150 width=150>
 <br> QR Code to get the website onto your phone<br><br>
+
       <script>
 console.log(document.getElementById('qrcode').src)
+console.log(location.href)
+document.getElementById('qrcode').src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+location.href
 </script>
    </body>
 </html>

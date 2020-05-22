@@ -2,7 +2,13 @@
 <html lang="en">
 <!--
 
-  This is an HTML Sensors. It access the phone/Browser orientation,accelormeter and geolocation API's
+  This is an HTML Sensors. 
+  It access the phone/Browser orientation,accelormeter and geolocation API's
+
+  NOTE: Make sure you device location service are enabled 
+
+  try this on your phone 
+  
   -->
 <head>
 	<meta charset="UTF-8">
@@ -223,8 +229,13 @@ getLocation()
          }
          */
       </script>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://OptimalStarkField--mvankempen.repl.co/91sensor.html" title="QRCode" height=150 width=150><<<<< ADJUST the URL
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=???" id="qrcode" title="QRCode" height=150 width=150>
 <br> QR Code to get the website onto your phone<br><br>
 
+      <script>
+console.log(document.getElementById('qrcode').src)
+console.log(location.href)
+document.getElementById('qrcode').src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+location.href
+</script>
    </body>
 </html>

@@ -1,24 +1,15 @@
 <!DOCTYPE html>
 <!--
-  7sendmylocation.html
+  80receiveandmap.html
 
-  In this example we will send our location to a central server. All student information is than used to to display their information on to a central map .
-
-  We using websockets to send the data 
+  In this example we will received every students location and create a marker.
 
   TODO: 
-
-  Adjust the name and id ... 
+  adjust the name and id 
   
-  
-  Create a json object with your name and location 
-
-  We will explain what JSON is  ;)
-
-  the map of the the central server is here with marker of all the students is here
-
-  https://thinklab1239.mybluemix.net/ui/#!/6?socketid=_zxDHlXtqQ_p7z_hAAAH
-
+  Change the icons for your  Marker and the other students
+  with 
+    icon: pinSymbol('green')
 
   -->
 <html>
@@ -26,15 +17,16 @@
     <style>
        /* Set the size of the div element that contains the map */
       #map {
-        height: 600px;  /* The height is 400 pixels */
+        height: 550px;  /* The height is 400 pixels */
         width: 100%;  /* The width is the width of the web page */
        }
     </style>
   </head>
   <body>
-    <h3>??MARKUS?? - Automatic position 7sendmylocation.html </h3>
+    <h3>??MARKUS?? - Map Students 80receiveandmap.html </h3>
     <br>Location:
     <p id="message"></p>
+        <p id="usermarker"></p>
     <p id="location"></p>
     <!--The div element for the map -->
     <div id="map"></div>
@@ -72,7 +64,16 @@ function showPosition(position) {
     mypos=position;
     initMap()
 }
-
+function pinSymbol(color) {
+  return {
+    path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+    fillColor: color,
+    fillOpacity: 1,
+    strokeColor: '#000',
+    strokeWeight: 1,
+    scale: 1
+  };
+}
 var map
 function initMap() {
 
@@ -87,12 +88,35 @@ function initMap() {
     content: "??MARKUS???"
   });
 
-  var marker = new google.maps.Marker({position: Location, map: map,  
+  var marker = new google.maps.Marker({position: Location, 
+  map: map,  
+  icon: pinSymbol('green'),
   title: 'My Location '});
   marker.addListener('click', function() {
     infowindow.open(map, marker);
   });
 }
+var u = document.getElementById("usermarker");
+function createmarker(name,lat,lon)
+{
+ console.log("createmarker");
+ u.innerHTML = "Creating Marker for "+name;
+ var myLatlng = new google.maps.LatLng(lat,lon);
+
+   var infowindow = new google.maps.InfoWindow({
+    content: name
+  });
+
+  var marker = new google.maps.Marker({position: myLatlng, 
+  animation: google.maps.Animation.DROP,
+  map: map,  
+  title: name});
+
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
+}
+
 
 var x = document.getElementById("demo");
    
@@ -100,18 +124,34 @@ let socket = new WebSocket("wss://thinklab1239.mybluemix.net/ws/snp");
 
 socket.onopen = function(e) {
   console.log("[open] Connection established");
-  //SEND Websocket messages every 10sec
-  setInterval(myTimer, 10000);
+  //SEND Websocket messages every 15sec or so
+  setInterval(myTimer, Math.floor(Math.random() * 15000));
 };
 
 socket.onclose = function(event) {
   if (event.wasClean) {
      console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
   } else {
-    // e.g. server process killed or network down
-    // event.code is usually 1006 in this case
+
      console.log('[close] Connection died');
   }
+};
+socket.onmessage = function(event) {
+  msg=JSON.parse(event.data)
+     console.log("[message]")
+   console.log(msg.payload)
+ 
+    if(msg.payload.pws !== undefined)
+      return;
+
+    if(msg.payload.id === undefined)
+      return;
+
+   console.log(`[message] Data received from server: ${event.data}`);
+
+ 
+   if(msg.payload.name !== undefined)
+     createmarker(msg.payload.name,msg.payload.lat,msg.payload.lon)
 };
 
 socket.onerror = function(error) {
@@ -125,20 +165,19 @@ function myTimer() {
   mymsg.payload = { };
 //TODO ... create JSON object ... 
   mymsg.payload.event="coordinates"
-  mymsg.payload.name="YOURNAME!"  //TODO::: adjust the anem and ID
+  mymsg.payload.name="YOURNAME" //TODO adjust name 
   mymsg.payload.id="???URID???"
   mymsg.payload.lon=mypos.coords.longitude
   mymsg.payload.lat=mypos.coords.latitude
   mymsg.payload.ts=Date.now() //Timestamp
   socket.send(JSON.stringify(mymsg));
   console.log(mymsg)
+  u.innerHTML = "";
 }
 
 getLocation()
 
 </script>
-
-<a href="https://thinklab1239.mybluemix.net/ui/#!/6?socketid=_zxDHlXtqQ_p7z_hAAAH" target=_new>Show Central Server Map</a>
 
     <!--Load the API from the specified URL
     * The async attribute allows the browser to render the page while the API loads
@@ -149,8 +188,8 @@ getLocation()
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2aF0czDYjAT3hAwKKZSpTm_e57VbDzs&callback=getLocation">
     </script>
 
-    
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=???" id="qrcode" title="QRCode" height=150 width=150>
+
+     <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=???" id="qrcode" title="QRCode" height=150 width=150>
 <br> QR Code to get the website onto your phone<br><br>
 
       <script>
@@ -158,6 +197,7 @@ console.log(document.getElementById('qrcode').src)
 console.log(location.href)
 document.getElementById('qrcode').src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+location.href
 </script>
+
 
   </body>
 </html>

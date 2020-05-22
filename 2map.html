@@ -7,16 +7,15 @@
 
   Change the title and the pupup window with your name repalce ???MARKUS????
 
-  Test the pages ... you should see a good map in the browser with a marker close to Hamiliton .... 
+  Test the pages ... you should see a google map in the browser with a marker close to Hamiliton .... 
   
-  
-  change the location to SNP+STEAM+Academy ... use the them in google maps to find the latitude/longitude 
+  change the location to SNP+STEAM+Academy  ... use the them in google maps to find the latitude/longitude 
 
   Test the Page Desktop and Phone 
 
   try to change the ZOOM level 
 
-  
+  add you location information
   -->
 <html>
 
@@ -35,15 +34,18 @@
 <body>
 	<h3>??MARKUS??? SNP Position - 1Map </h3>
 	<br>Location:
-    <p id="demo"></p>
+    <p id="location"></p>
     <!--The div element for the map -->
     <div id="map"></div>
     <script>
 
-var map
+var map;
 //Goole URL with LAT/LON Example .... try to get the location for SNP+STEAM+Academy
 //https://www.google.com/maps/place/Hamilton,+ON/@43.2604685,-80.2133321,10z/data=!4m13!1m7!3m6!1s0x882c986c27de778f:0x2b6aee56d8df0e21!2sHamilton,+ON!3b1!8m2!3d43.2557206!4d-79.8711024!3m4!1s0x882c986c27de778f:0x2b6aee56d8df0e21!8m2!3d43.2557206!4d-79.8711024
+var x = document.getElementById("location");
+ x.innerHTML = "What is Your Location ????MARKUS??? ";
 
+ 
 function initMap() {
 
 ///TODO: Change the Location SNP+STEAM+Academy/
@@ -83,5 +85,18 @@ function initMap() {
     <script 
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2aF0czDYjAT3hAwKKZSpTm_e57VbDzs&callback=initMap">
     </script>
+
+<!--QRCODE -->
+
+         <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=???" id="qrcode" title="QRCode" height=150 width=150>
+<br> QR Code to get the website onto your phone<br><br>
+
+      <script>
+console.log(document.getElementById('qrcode').src)
+console.log(location.href)
+document.getElementById('qrcode').src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+location.href
+</script>
+
+
   </body>
 </html>

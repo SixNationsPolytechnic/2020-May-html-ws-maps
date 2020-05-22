@@ -4,7 +4,9 @@
 
  this map display the sensor information form all students on a map.
 
- it will create a marker with for id 99 which is animated.
+ it will create a personalize marker  for id 99 which is animated.
+
+ change the id so it matches your phone sensor 
 
   -->
 <html>
@@ -134,7 +136,7 @@ socket.onmessage = function(event) {
     if(msg.payload.id === undefined)
       return;
 
-    if(msg.payload.id === '99')
+    if(msg.payload.id === '99') //TODO use your ID
       mycreatemarker(msg.payload.name,msg.payload.lat,msg.payload.lon,msg.payload.alpha)
 
    console.log(`[message] Data received from server: ${event.data}`);
@@ -146,6 +148,9 @@ socket.onmessage = function(event) {
 
 socket.onerror = function(error) {
    console.log(`[error] ${error.message}`);
+   alert("Websocket died")
+
+    socket = new WebSocket("wss://thinklab1239.mybluemix.net/ws/snp");
 };
 
 

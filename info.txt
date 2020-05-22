@@ -1,4 +1,14 @@
-<!-- Html form submit infos to Central server 
+<!-- 
+
+Nathan HTML
+Connection / reconnect
+
+check code ...
+
+
+
+
+Html form submit infos to Central server 
 server will send message to student 
 
 

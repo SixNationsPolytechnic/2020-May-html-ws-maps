@@ -4,17 +4,20 @@
 
   This is an HTML form which is use to enter Name , LAt,Lon coordinate. 
 
-  Please fix some of the styles ??? and image issues
+  Please fix some of the styles images look ofr  ??? and image issues
 
-  You need to add a name input field to the form bedore you can submit the form.
+  Add a additional input filed  field to the form bedore you can submit the form.
 
+  the form will redirect you to 5map.html
+
+try the form in you phone via the qrcode
   -->
 <html>
 
 <body>
 	<style>
-		body {
-			background-image: url(https????://api.athleticsnyc.site/wp-content/uploads/2019/05/ISOAthletics_IBM_Think_Image_7.jpg);
+		body??? {
+			background-image: url(https://api.athleticsnyc.site/wp-content/uploads/2019/05/ISOAthletics_IBM_Think_Image_7.jpg);
 
 		}
 
@@ -24,31 +27,36 @@
 			text-align: right;
 		}
 
-		.button?? {
-			// background-color: #4CAF50;
+		.button {
+			background-color: #4CAF50;
 			border: none;
 			color: white;
 			padding: 15px 32px;
 			text-align: center;
 			text-decoration: none;
-			// display: inline-block;
+			display: inline-block;
 			font-size: 16px;
 			margin: 4px 2px;
 			cursor: pointer;
 		}
 	</style>
 	<font size="+2">
-		<h3>??MARKUS??? - Submit a Location </h3>
+		<h3>??MARKUS??? - Submit a form Location </h3>
 
 		<form action="/5map.html" method="get" onsubmit="return mySubmit()">
 			<label for="fname">Name:</label>
-
+ <input style="font-size:25px;" type="text" id="name" name="name" value="MARKUS" required>*<br><br>
   
-
   <label for="lat">lat:</label>
   <input style="font-size:25px;" type="text" id="lat" name="lat" required>*<br><br>
    <label for="lon">long:</label>
   <input style="font-size:25px;" type="text" id="lon" name="lon" required>*<br>
+
+   <label for="lon">New Field</label>
+  <input style="font-size:25px;" type="text" id="new" name="new" ><br>
+
+<!-- add a field here -->
+
   <label for="sb">    </label>
   <input type="submit" id="submit" value="Submit" class="button" ><br>
 
@@ -103,7 +111,17 @@ function mySubmit()
 }
 defaultpos()
 //getLocation() 
-
 </script>
+<!--QRCODE -->
+
+         <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=???" id="qrcode" title="QRCode" height=150 width=150>
+<br> QR Code to get the website onto your phone<br><br>
+
+      <script>
+console.log(document.getElementById('qrcode').src)
+console.log(location.href)
+document.getElementById('qrcode').src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+location.href
+</script>
+
 </body>
 </html>
